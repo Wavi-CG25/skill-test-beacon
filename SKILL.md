@@ -5,6 +5,7 @@ version: 1.0.0
 scope: all
 assets:
   - references/notes.md
+  - scripts/run.py
 ---
 
 # Test Beacon
