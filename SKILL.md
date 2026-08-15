@@ -1,6 +1,6 @@
 ---
 name: Test Beacon
-description: A test fixture that makes skill injection visible — every reply opens with a fixed marker line carrying the skill's version.
+description: A testabc fixture that makes skill injection visible — every reply opens with a fixed marker line carrying the skill's version.
 version: 2.0.0
 scope: all
 assets:
