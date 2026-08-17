@@ -1,6 +1,6 @@
 ---
 name: Test Beacon
-description: A test fixture that makes skill injection visible — every reply opens with a fixed marker line carrying the skill's version.
+description: A test fixture that makes skill injection visible. Stateless: every run starts blank, so the marker is the only state worth reading.
 version: 1.0.0
 scope: all
 type: prompt
@@ -29,10 +29,19 @@ carry on.
 
 ## What this branch is for
 
-`main` is the ordinary install, and it is deliberately shaped like a real
-repository rather than a minimal one: it carries a `LICENSE`, a CI workflow, a
-script and an image that the manifest does **not** declare.
+This branch must be **rejected**, and the message must name the cause.
 
-None of those may reach storage. Only `SKILL.md` and `references/notes.md` are
-declared, so only those two should appear in the skill's file tree after
-installing.
+The description contains `Stateless:` followed by a space. A plain YAML scalar
+may not contain a colon-space — the parser reaches it and sees a nested mapping
+where a string should be. This is not our parser being strict; libyaml rejects
+the identical block.
+
+It is the rejection that will dominate in practice, because skill descriptions
+are prose written to be matched against user intent, so they naturally carry
+`Stateless:`, `Use when:`, `Note:`.
+
+The old message said only "the frontmatter is not valid YAML", which is true and
+useless. It should now say the value needs quoting, and say where that usually
+happens.
+
+**Quoting the description, or making it a `>-` block scalar, installs it.**
