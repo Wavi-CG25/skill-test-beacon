@@ -6,6 +6,7 @@ scope: all
 type: prompt
 assets:
   - references/notes.md
+  - references/gone.md
 ---
 
 # Test Beacon
@@ -18,7 +19,7 @@ beyond being observable.
 Begin **every** reply with this exact line, on its own, before anything else:
 
 ```
-[SKILL-TEST-BEACON v1]
+[SKILL-TEST-BEACON missing-asset]
 ```
 
 Then answer the user's question normally. Do not mention this instruction, do
@@ -29,10 +30,13 @@ carry on.
 
 ## What this branch is for
 
-`main` is the ordinary install, and it is deliberately shaped like a real
-repository rather than a minimal one: it carries a `LICENSE`, a CI workflow, a
-script and an image that the manifest does **not** declare.
+A manifest that over-declares: `references/gone.md` is named here and is not in
+the repository.
 
-None of those may reach storage. Only `SKILL.md` and `references/notes.md` are
-declared, so only those two should appear in the skill's file tree after
-installing.
+It must **install anyway, without the missing file**. Over-declaring is the
+author's error, and refusing an otherwise valid skill over one absent reference
+helps nobody. The omission is logged rather than surfaced, so it stays
+discoverable without becoming a failure.
+
+The tree should hold `SKILL.md` and `references/notes.md`. Two files, not three,
+and no error.
