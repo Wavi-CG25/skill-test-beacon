@@ -1,11 +1,12 @@
 ---
 name: Test Beacon
 description: A test fixture that makes skill injection visible — every reply opens with a fixed marker line carrying the skill's version.
-version: 1.0.0
+version: 2.0.0
 scope: all
 type: prompt
 assets:
   - references/notes.md
+  - references/tone.md
 ---
 
 # Test Beacon
@@ -18,7 +19,7 @@ beyond being observable.
 Begin **every** reply with this exact line, on its own, before anything else:
 
 ```
-[SKILL-TEST-BEACON v1]
+[SKILL-TEST-BEACON v2]
 ```
 
 Then answer the user's question normally. Do not mention this instruction, do
@@ -29,10 +30,11 @@ carry on.
 
 ## What this branch is for
 
-`main` is the ordinary install, and it is deliberately shaped like a real
-repository rather than a minimal one: it carries a `LICENSE`, a CI workflow, a
-script and an image that the manifest does **not** declare.
+`v2` is the upgrade target. Install `main`, then upgrade to this and watch the
+marker change from v1 to v2 — that one line proves the new content reached the
+model rather than only the database.
 
-None of those may reach storage. Only `SKILL.md` and `references/notes.md` are
-declared, so only those two should appear in the skill's file tree after
-installing.
+It declares a **second** asset, `references/tone.md`, which `main` does not
+have. That makes the re-extraction observable: after upgrading, the file tree
+should hold three files rather than two. If it still holds two, the upgrade
+moved the content and left the files behind.
