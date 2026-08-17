@@ -1,0 +1,19 @@
+# NOT declared in SKILL.md, and it must never reach Cluega's storage.
+#
+# A .yml IS on the asset allowlist, which is exactly why this file is here: it
+# proves the install copies what the manifest DECLARED rather than everything it
+# was allowed to. An extension-based filter over the whole tree would pull this
+# in; a declaration-based copy cannot.
+#
+# Deliberately triggered by workflow_dispatch alone. This repository is a
+# fixture, not a project — a workflow that fired on push would add failing runs
+# to every fixture update for no reason.
+name: CI
+on:
+  workflow_dispatch:
+
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This fixture has nothing to build."
