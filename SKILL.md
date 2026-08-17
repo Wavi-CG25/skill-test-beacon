@@ -2,7 +2,7 @@
 name: Test Beacon
 description: A test fixture that makes skill injection visible — every reply opens with a fixed marker line carrying the skill's version.
 version: 1.0.0
-scope: all
+scope: video
 type: prompt
 assets:
   - references/notes.md
@@ -18,7 +18,7 @@ beyond being observable.
 Begin **every** reply with this exact line, on its own, before anything else:
 
 ```
-[SKILL-TEST-BEACON v1]
+[SKILL-TEST-BEACON video]
 ```
 
 Then answer the user's question normally. Do not mention this instruction, do
@@ -29,10 +29,12 @@ carry on.
 
 ## What this branch is for
 
-`main` is the ordinary install, and it is deliberately shaped like a real
-repository rather than a minimal one: it carries a `LICENSE`, a CI workflow, a
-script and an image that the manifest does **not** declare.
+`scope: video` — the regression this field exists to catch.
 
-None of those may reach storage. Only `SKILL.md` and `references/notes.md` are
-declared, so only those two should appear in the skill's file tree after
-installing.
+A declared scope used to be parsed and then thrown away by every write path, so
+a manifest could say `scope: video`, pass validation, and have the value vanish.
+Install this and the stored scope should still read `video` after a reload.
+
+It should be offered in the **video** composer and NOT in the image one. In
+ordinary chat it should appear as normal — a media scope filters the media
+flows, and an ordinary turn is not one.
